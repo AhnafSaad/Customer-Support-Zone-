@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import TicketDetailsModal from './TicketDetailsModal';
+import React, { useState } from "react";
+import TicketDetailsModal from "./TicketDetailsModal";
 
 const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }) => {
   const [visibleCount, setVisibleCount] = useState(10);
@@ -44,10 +44,12 @@ const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }
   });
 
   return (
-    <div className="bg-base-100 px-4 md:px-16 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-2 order-2 lg:order-1">
-          <h2 className="text-2xl font-bold text-base-content mb-6">Customer Tickets</h2>
+    <div className="bg-white px-4 md:px-16 py-8">
+      {/* গ্রিড ৫ কলামে ভাগ করা হয়েছে */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+        {/* টিকেট সেকশন ৩ কলাম নেবে */}
+        <div className="lg:col-span-3 order-2 lg:order-1">
+          <h2 className="text-2xl font-bold text-black mb-6">Customer Tickets</h2>
 
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <input
@@ -58,7 +60,7 @@ const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }
                 setSearchTerm(e.target.value);
                 setVisibleCount(10);
               }}
-              className="input input-bordered flex-1"
+              className="input input-bordered flex-1 bg-white text-black"
             />
             <select
               value={priorityFilter}
@@ -66,7 +68,7 @@ const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }
                 setPriorityFilter(e.target.value);
                 setVisibleCount(10);
               }}
-              className="select select-bordered min-w-max"
+              className="select select-bordered min-w-max bg-white text-black"
             >
               <option value="All">All Priorities</option>
               <option value="High">High Priority</option>
@@ -107,7 +109,7 @@ const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }
             ))}
           </div>
           {filteredTickets.length === 0 && (
-            <div className="text-center py-10 text-base-content/70 bg-base-100">
+            <div className="text-center py-10 text-gray-600 bg-white">
               <p className="text-sm">No tickets found matching your search and filters.</p>
             </div>
           )}
@@ -127,24 +129,25 @@ const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }
           onStartWorking={handleStartWorking}
         />
 
-        <div className="lg:col-span-1 order-1 lg:order-2 flex flex-col gap-6">
+        {/* ডানদিকের সাইডবার ২ কলাম নেবে এবং lg:mt-32 এর কারণে নিচে নেমে টিকেট কার্ডগুলোর বরাবর হবে */}
+        <div className="lg:col-span-2 order-1 lg:order-2 flex flex-col gap-6 lg:mt-32">
 
-          <div className="bg-base-100 p-6 rounded-2xl border border-base-300 shadow-sm">
-            <h2 className="text-xl font-bold text-base-content mb-4">Task Status</h2>
+          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+            <h2 className="text-xl font-bold text-black mb-4">Task Status</h2>
             <div className="space-y-3">
               {taskStatus.length > 0 ? taskStatus.map(t => (
                 <div key={t.id} className="p-3 bg-info/10 rounded-lg flex justify-between items-center border border-info/30">
-                  <span className="font-bold text-xs text-base-content">{t.title}</span>
+                  <span className="font-bold text-xs text-black">{t.title}</span>
                   <button onClick={() => onComplete(t)} className="btn btn-success btn-xs text-white">Complete</button>
                 </div>
               )) : (
-                <p className="text-base-content/50 text-xs italic text-center py-6 border-2 border-dashed border-base-300 rounded-xl">Select a ticket to start</p>
+                <p className="text-gray-500 text-xs italic text-center py-6 border-2 border-dashed border-gray-300 rounded-xl">Select a ticket to start</p>
               )}
             </div>
           </div>
-          <div className="bg-base-100 p-6 rounded-2xl border border-base-300 shadow-sm">
+          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
              <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-base-content">Resolved Task</h2>
+              <h2 className="text-xl font-bold text-black">Resolved Task</h2>
               <span className="badge badge-success text-[10px] font-bold">
                 {resolvedTasks.length} Completed
               </span>
@@ -155,7 +158,7 @@ const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }
               resolvedTasks.map((t) => (
                 <div
                    key={t.id}
-                     className="flex items-center gap-4 p-4 bg-base-100 rounded-xl border border-base-300 hover:border-success transition-all group"
+                     className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200 hover:border-success transition-all group"
                   >
                 <div className="w-8 h-8 rounded-full bg-success/20 flex items-center justify-center shrink-0">
                  <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -164,14 +167,14 @@ const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }
                 </div>
 
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-base-content text-[13px] truncate">
+            <p className="font-bold text-black text-[13px] truncate">
               {t.title}
             </p>
             <div className="flex items-center gap-2 mt-0.5">
-              <span className="text-[9px] font-bold text-base-content/60 uppercase tracking-wider">
+              <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">
                 ID: #{t.id}
               </span>
-              <span className="w-1 h-1 rounded-full bg-base-content/30"></span>
+              <span className="w-1 h-1 rounded-full bg-gray-300"></span>
               <span className="text-[9px] font-bold text-success uppercase">
                 Successfully Resolved
               </span>
@@ -180,7 +183,7 @@ const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }
         </div>
       ))
     ) : (
-      <div className="text-base-content/50 text-xs italic py-10 border-2 border-dashed border-base-300 rounded-2xl text-center bg-base-100">
+      <div className="text-gray-500 text-xs italic py-10 border-2 border-dashed border-gray-300 rounded-2xl text-center bg-white">
         No tasks resolved yet.
       </div>
     )}
