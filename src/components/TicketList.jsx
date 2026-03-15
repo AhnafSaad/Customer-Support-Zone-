@@ -129,7 +129,7 @@ const TicketList = ({ tickets, onSelect, taskStatus, onComplete, resolvedTasks }
           onStartWorking={handleStartWorking}
         />
 
-        {/* ডানদিকের সাইডবার ২ কলাম নেবে এবং lg:mt-32 এর কারণে নিচে নেমে টিকেট কার্ডগুলোর বরাবর হবে */}
+        
         <div className="lg:col-span-2 order-1 lg:order-2 flex flex-col gap-6 lg:mt-32">
 
           <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
