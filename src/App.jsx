@@ -1,21 +1,48 @@
-import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
-import Faq from "./components/Faq";
-import Footer from "./components/Footer";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import NewTicketModal from "./components/NewTicketModal";
-import React, { useState } from "react";
-import Reports from "./components/Reports";
-import ticketsData from "./tickets.json";
-import { Route, Routes } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import './App.css';
+import Navbar from './components/Navbar';
+import NewTicketModal from './components/NewTicketModal';
+import Footer from './components/Footer';
+import Home from './components/Home';
+import Reports from './components/Reports';
+import Faq from './components/Faq';
+import ticketsData from './tickets.json';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [tickets, setTickets] = useState(ticketsData);
-  const [taskStatus, setTaskStatus] = useState([]); 
-  const [resolvedTasks, setResolvedTasks] = useState([]); 
+  // Initialize state from Local Storage or fallback to default data
+  const [tickets, setTickets] = useState(() => {
+    const savedTickets = localStorage.getItem('tickets');
+    return savedTickets ? JSON.parse(savedTickets) : ticketsData;
+  });
+
+  const [taskStatus, setTaskStatus] = useState(() => {
+    const savedTasks = localStorage.getItem('taskStatus');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  }); 
+
+  const [resolvedTasks, setResolvedTasks] = useState(() => {
+    const savedResolved = localStorage.getItem('resolvedTasks');
+    return savedResolved ? JSON.parse(savedResolved) : [];
+  }); 
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Save to Local Storage whenever state changes
+  useEffect(() => {
+    localStorage.setItem('tickets', JSON.stringify(tickets));
+  }, [tickets]);
+
+  useEffect(() => {
+    localStorage.setItem('taskStatus', JSON.stringify(taskStatus));
+  }, [taskStatus]);
+
+  useEffect(() => {
+    localStorage.setItem('resolvedTasks', JSON.stringify(resolvedTasks));
+  }, [resolvedTasks]);
 
   // Handle adding a ticket to the task status list
   const handleSelectTicket = (ticket) => {
