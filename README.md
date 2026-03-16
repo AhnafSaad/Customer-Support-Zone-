@@ -1,4 +1,5 @@
 Customer Support Zone 🎫
+
 A modern, streamlined customer support ticket management system built with React, Vite, Tailwind CSS, and DaisyUI. This application allows support agents to efficiently track, manage, and resolve customer issues.
 
 🚀 Features
